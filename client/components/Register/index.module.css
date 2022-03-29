@@ -1,0 +1,30 @@
+.register {
+  display: inline-block;
+  height: fit-content;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+.button {
+  width: 80%;
+}
+
+.form-item {
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.emailBox > .form-item {
+  margin: 0;
+}
+.emailBox > button {
+  margin-left: 0.5rem;
+}
+.emailBox {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2.5rem;
+}

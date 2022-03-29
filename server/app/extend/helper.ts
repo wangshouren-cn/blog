@@ -1,0 +1,9 @@
+export default {
+  isValidString(...values) {
+    for (const value of values) {
+      if (typeof value != "string" || value.length <= 0) return false;
+    }
+
+    return true;
+  },
+};

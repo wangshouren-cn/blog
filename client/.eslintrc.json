@@ -1,0 +1,4 @@
+{
+  "extends": "next/core-web-vitals",
+  "no-unused-vars": [2, { "vars": "all", "args": "after-used" }]
+}

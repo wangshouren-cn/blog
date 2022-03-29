@@ -1,0 +1,45 @@
+.slide {
+  height: 100%;
+  border: 1px dotted;
+  width: 350px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: @color-bg-yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.active {
+  color: @color-blue !important;
+  border-color: @color-blue !important;
+}
+
+.button {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-item {
+  padding: 20px 0;
+  color: @color-font;
+  border-bottom: @color-gray dotted;
+  
+  //  filter: drop-shadow(0 0.05em 0.25em rgba(0, 0, 0, 0.5));
+}
+
+.link-item:hover {
+  color: @color-blue;
+  border-color: @color-blue;
+  cursor: pointer;
+}
+
+.title{
+  font-size: 1rem;
+}

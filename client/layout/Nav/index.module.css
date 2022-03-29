@@ -1,0 +1,64 @@
+.navBox {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: #fff;
+  text-align: center;
+  transition: box-shadow 0.1s ease-in-out;
+  border-radius: 0.5rem;
+  position: sticky;
+  top: 0;
+}
+
+/* head */
+.head {
+  display: inherit;
+  flex-direction: inherit;
+}
+.avatarBox {
+  padding: 1rem 2rem;
+}
+.avatarImg {
+  width: 6rem;
+  height: 6rem;
+}
+.h1 {
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+/* footer */
+.footer {
+  display: inherit;
+  flex-direction: inherit;
+}
+.footer > li {
+  border-top: 1px solid rgb(243, 243, 243);
+  font-size: 0.875rem;
+}
+
+.footer > li > a {
+  padding: .5rem;
+  display: inline-block;
+}
+.footer > li > span {
+  padding: .5rem;
+  display: inline-block;
+}
+
+
+.footer > li:not(:last-child) {
+  cursor: pointer;
+}
+.footer > li:not(:last-child):hover {
+  background-color: rgb(68, 206, 246);
+  color: var(--color-white);
+}
+.input {
+  padding: .5rem;
+  outline: none;
+  background-color: inherit;
+  border: none;
+  text-align: inherit;
+  font-size: inherit;
+  color: var(--color-gray);
+}
