@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-const path = require("path");
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -8,9 +8,11 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         javascriptEnabled: true,
-        additionalData:`@import "${path.resolve(__dirname,"src/base.less")}";`
+        additionalData: `@import "${path.resolve(
+          __dirname,
+          'src/base.less'
+        )}";`
       }
     }
-  },
-
-});
+  }
+})

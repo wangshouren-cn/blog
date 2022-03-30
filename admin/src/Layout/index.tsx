@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import Login from "./Login";
 import Content from "./Content";
 import Slide from "./Slide";
