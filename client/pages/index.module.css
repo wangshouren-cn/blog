@@ -4,3 +4,6 @@
   color: var(--color-gray);
   font-size: .875rem;
 }
+.container{
+  box-shadow: 0 .2rem 1rem rgba(0,0,0,0.02);
+}

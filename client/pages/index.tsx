@@ -33,10 +33,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     refresh();
 
-  }, [stringifySearch(router.query), refresh]);
+  }, [stringifySearch(router.query as any), refresh]);
 
   return (
-    <div ref={ref}>
+    <div className={ styles.container} ref={ref}>
       <ArticleList articles={articleList} />
       <div className={styles.pageOperations}>
         {page < Math.ceil(total / pageSize) ? (

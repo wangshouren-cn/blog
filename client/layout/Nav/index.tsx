@@ -94,7 +94,7 @@ const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
           <>
             <li
               className={classnames(styles.li, {
-                active: stringifySearch(router.query).includes("userId"),
+                active: stringifySearch(router.query as any).includes("userId"),
               })}
             >
               <span onClick={() => onCollect(user._id)}>收藏</span>
