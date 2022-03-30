@@ -27,7 +27,7 @@ export default (appInfo: EggAppInfo) => {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: ["http://121.4.95.151:9000", "http://121.4.95.151:80","http://127.0.0.1:9000", "http://127.0.0.1:80"], //[]中放放出的白名单，*代表所有
+    domainWhiteList: ["http://121.4.95.151","http://121.4.95.151:9000"], //[]中放放出的白名单，*代表所有
   };
   config.cors = {
     // origin: "http://127.0.0.1:3000",

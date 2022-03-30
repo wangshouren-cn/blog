@@ -86,11 +86,6 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-win32-x64-msvc@12.1.1":
-  "integrity" "sha512-nH5osn/uK9wsjT8Jh1YxMtRrkN5hoCNLQjsEdvfUfb+loQXeYiBd3n/0DUJkf6Scjfv6/htfUTPP3AEa7AbBxQ=="
-  "resolved" "https://registry.npmmirror.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.1.tgz"
-  "version" "12.1.1"
-
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmmirror.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -1476,10 +1471,10 @@
     "react-is" "^16.12.0"
     "shallowequal" "^1.1.0"
 
-"react-blog-library@^3.4.10":
-  "integrity" "sha512-+EMPLDZeL2WFihiM2v7JQIYh4xWBhJPnX/ZU9SlmnFZKOp6EUcseuy6oAd7W037L+4Kds2/MQWYc3wS4Pg9zfQ=="
-  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.10.tgz"
-  "version" "3.4.10"
+"react-blog-library@^3.4.11":
+  "integrity" "sha512-jJdemURzVZtRaJqt2B2Q8zd2oy6thj2APzFeDlKwwQTItd7H5rHip+cEm0Ooir38fzr7nQJVhS1MLpkdckqr0g=="
+  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.11.tgz"
+  "version" "3.4.11"
 
 "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>=16.0.0", "react-dom@>=16.8", "react-dom@>=16.9.0", "react-dom@17.0.2":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
