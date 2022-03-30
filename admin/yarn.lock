@@ -2211,9 +2211,10 @@
     "react-is" "^16.12.0"
     "shallowequal" "^1.1.0"
 
-"react-blog-library@file:../../library/react-library/react-blog-library":
-  "resolved" "file:../../library/react-library/react-blog-library"
-  "version" "2.5.10"
+"react-blog-library@^3.4.11":
+  "integrity" "sha512-jJdemURzVZtRaJqt2B2Q8zd2oy6thj2APzFeDlKwwQTItd7H5rHip+cEm0Ooir38fzr7nQJVhS1MLpkdckqr0g=="
+  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.11.tgz"
+  "version" "3.4.11"
 
 "react-color@^2.14.1":
   "integrity" "sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA=="
@@ -2228,7 +2229,7 @@
     "reactcss" "^1.2.0"
     "tinycolor2" "^1.4.1"
 
-"react-dom@^0.14.0 || ^15.0.0-rc || ^16.0.0-rc || ^16.0.0", "react-dom@^15.0.2 || ^16.0.0-rc || ^16.0.0 || ^17.0.0", "react-dom@^15.0.2|| ^16.0.0-rc || ^16.0.0", "react-dom@^16.4.1", "react-dom@^17.0.2", "react-dom@>=16.0.0", "react-dom@>=16.8", "react-dom@>=16.9.0":
+"react-dom@^0.14.0 || ^15.0.0-rc || ^16.0.0-rc || ^16.0.0", "react-dom@^15.0.2 || ^16.0.0-rc || ^16.0.0 || ^17.0.0", "react-dom@^15.0.2|| ^16.0.0-rc || ^16.0.0", "react-dom@^16.4.1", "react-dom@^17.0.2", "react-dom@>=16.0.0", "react-dom@>=16.8", "react-dom@>=16.9.0", "react-dom@17.0.2":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmmirror.com/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
