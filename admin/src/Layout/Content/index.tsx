@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Routes } from "react-router";
 import routesConfig from "../../routes.config";
 import { mapRoutesConfigToRouter } from "../../util/mapRoutesConfig";

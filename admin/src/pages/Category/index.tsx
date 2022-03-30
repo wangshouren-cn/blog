@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Button, ButtonWithInput, createCategory, destroyCategory, getCategoryList, Input, Message, Modal, Table, updateCategory, useHttpListData } from 'react-blog-library/lib'
 
 const FunctionComponent: React.FC = () => {

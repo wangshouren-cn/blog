@@ -3,15 +3,13 @@ import { createArticle, isObject, isTrue, Message, SaveBar, useFormStore } from 
 
 import ArticleForm from '../Components/ArticleForm'
 export interface CreateArticleProps extends HTMLAttributes<any> {}
-const CreateArticle: React.FC<CreateArticleProps> = (props) => {
+const CreateArticle: React.FC<CreateArticleProps> = () => {
   const [formStore] = useFormStore()
 
   const handleSave = useCallback(async () => {
     const msgs = formStore.validateAll()
 
     if (!isTrue(msgs)) return Message.error((msgs as string[]).join('；'))
-
-    console.log('formStore.getValues()', formStore.getValues())
 
     const values = formStore.getValues()
 

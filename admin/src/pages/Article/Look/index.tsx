@@ -1,11 +1,10 @@
 import React, { HTMLAttributes, useEffect } from "react";
-import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import "braft-editor/dist/output.css";
 import { getArticleById, Loading, Message, SaveBar, useHttpData } from "react-blog-library";
 
 export interface LookProps extends HTMLAttributes<any> {}
-const Look: React.FC<LookProps> = (props) => {
+const Look: React.FC<LookProps> = () => {
   const [params] = useSearchParams();
 
   const id = params.get("id");

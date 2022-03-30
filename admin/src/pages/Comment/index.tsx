@@ -1,20 +1,17 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Button, ButtonWithInput, destroyComment, getCommentList, Message, Modal, parseSearch, Select, Table, updateComment, useHttpListData } from "react-blog-library";
 
-
 const Comment: React.FC = () => {
   /**
    * @description: states
    */
   const {
     list,
-    loading,
     run,
     error,
     page,
     pageSize,
     total,
-    search,
     setSearchAndRun,
   } = useHttpListData<Comment, CommentSearchParams>(() =>
     getCommentList(parseSearch(window.location.search))
