@@ -31,7 +31,7 @@ export default class extends BaseController {
 
     return { should, reason };
   }
-  async shouldUpdate(body: any): Promise<{ should: boolean; reason: string }> {
+  async shouldUpdate(_id:string,body: any): Promise<{ should: boolean; reason: string }> {
     return await this.shouldCreate(body);
   }
 

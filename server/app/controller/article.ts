@@ -193,4 +193,5 @@ export default class extends BaseController {
       await this.mountCommentsForArticle(article);
     }
   }
+
 }

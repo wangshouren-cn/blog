@@ -54,7 +54,7 @@ export default class BaseController extends Controller {
       request: { body },
     } = ctx;
 
-    const { should, reason } = await this.shouldUpdate(body);
+    const { should, reason } = await this.shouldUpdate(id,body);
     if (should) {
       const { data: oldData } = await service[this.serviceName].findById(id);
       const res: ErrDataResult = await service[this.serviceName].update(
@@ -144,7 +144,7 @@ export default class BaseController extends Controller {
     };
   }
 
-  async shouldUpdate(_body) {
+  async shouldUpdate(_id,_body) {
     return {
       should: true,
       reason: "",

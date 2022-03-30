@@ -43,7 +43,7 @@ export default class extends BaseController {
     this.handleErrData({ err, data });
   }
 
-  async shouldUpdate(_body: any): Promise<{ should: boolean; reason: string }> {
+  async shouldUpdate(_id:string,_body: any): Promise<{ should: boolean; reason: string }> {
     return {
       should: this.ctx.tokenInfo.isAdmin,
       reason: "",

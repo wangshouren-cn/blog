@@ -245,9 +245,15 @@ export default class extends BaseController {
     }
   }
 
-  async shouldUpdate({
+  async shouldUpdate(_id,{
     username,
+    
   }: any): Promise<{ should: boolean; reason: string }> {
+
+    if (_id != this.ctx.tokenInfo.id) {
+      return {should:false,reason:"没有访问权限"}
+    }
+
     let should = true,
       reason;
     const { data, err } = await this.service.user.findOne({ username });
