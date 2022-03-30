@@ -43,6 +43,8 @@ export default class extends BaseController {
       for (const item of list) {
         const filterQuery = {};
         filterQuery[name] = item.name;
+        console.log("filterQuery2",filterQuery);
+        
         const { list: _list } = await service.article.find(filterQuery);
         item.articleCount = _list.length;
       }

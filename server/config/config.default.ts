@@ -60,7 +60,7 @@ export default (appInfo: EggAppInfo) => {
     renew: true, //延长会话有效期
   };
 
-  config.host = "http://127.0.0.1:7001";
+  config.host = "121.4.95.151:7001";
 
   // the return config will combines to EggAppConfig
   return {

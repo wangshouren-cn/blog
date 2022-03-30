@@ -1,3 +1,4 @@
+import { ErrListResult } from "../../typings";
 import TagOrCategoryController from "./TagOrCategoryController";
 
 export default class extends TagOrCategoryController {
@@ -37,6 +38,28 @@ export default class extends TagOrCategoryController {
       const index = tags.indexOf(name);
       tags.splice(index, 1);
       await service.article.update(_id, { tags });
+    }
+  }
+
+  /**
+   * @description:增加文章数量字段 
+   * @param {ErrListResult} res
+   * @return {*}
+   */  
+  async onQueried(res: ErrListResult): Promise<void> {
+    const { list } = res;
+    const { service} = this;
+
+    if (list) {
+      for (const item of list) {
+
+        const filterQuery = {} as any;
+
+        filterQuery.tags = { $all: [item.name] };
+        
+        const { list: _list } = await service.article.find(filterQuery);
+        item.articleCount = _list.length;
+      }
     }
   }
 }
