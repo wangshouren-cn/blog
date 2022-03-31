@@ -1,6 +1,4 @@
 import React, { HTMLAttributes, useCallback } from "react";
-import { getCategoryList, Loading } from "react-blog-library/lib";
-import useHttpListData from "../../utils/useHttpListData";
 import styles from "./index.module.css";
 import classnames from "classnames";
 import { useRouter } from "next/router";
