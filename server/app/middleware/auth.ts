@@ -7,7 +7,8 @@ module.exports = () => {
     const { path, method } = ctx.request;
 
     //get请求和登录请求不需要token
-    if (method == "GET" || /^\/(login|checkEmailAndSend|register)\//.test(ctx.path))
+    console.log("path",path)
+    if (method == "GET" || /(login|checkEmailAndSend|register)/.test(ctx.path))
       return await next();
 
     const token = ctx.request.header.authorization;
@@ -20,8 +21,8 @@ module.exports = () => {
     try {
       ctx.tokenInfo = ctx.app.deToken(token as string, ctx.app); // 验证token
 
-      //用户只有一个路径可以访问，就是收藏文章
-      if( !ctx.tokenInfo.isAdmin && !(method==="PUT" &&  path.startsWith("/user/"))){
+      //用户只有2个路径可以访问，就是收藏文章和评论
+      if( !ctx.tokenInfo.isAdmin && !(method==="PUT" &&  path.startsWith("/user/")) && !(method==="POST" &&  path.startsWith("/comment"))){
         return ctx.body = {
           msg: "没有访问权限",
           code: 403,

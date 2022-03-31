@@ -54,15 +54,16 @@ const FunctionComponent: React.FC<RegisterProps> = ({ onRegistered }) => {
 
   const send = useCallback(async (email: string) => {
     if (sendState.disabled) return;
-    sendState.disabled = true;
 
     if (!isTrue(formStore.validate("email"))) {
       return Message.error("邮箱好像不正确");
     } else {
+
       const res = await sendCode({ email: formStore.getValue("email") });
       sendState.timer = 5;
       sendState.disabled = true;
       forceUpdate();
+
       const timer = setInterval(() => {
         if (sendState.timer === 0) {
           clearInterval(timer);
