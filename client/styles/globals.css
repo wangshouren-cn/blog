@@ -91,3 +91,7 @@ li.active {
 .color-black {
   color: var(--color-black) !important;
 }
+
+pre{
+  white-space: break-spaces;
+}
