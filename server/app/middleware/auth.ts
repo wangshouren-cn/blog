@@ -7,7 +7,7 @@ module.exports = () => {
     const { path, method } = ctx.request;
 
     //get请求和登录请求不需要token
-    if (method == "GET" || /(login|sendMail|register)/.test(ctx.path))
+    if (method == "GET" || /(login|checkEmailAndSend|register)/.test(ctx.path))
       return await next();
 
     const token = ctx.request.header.authorization;
