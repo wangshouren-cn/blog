@@ -43,6 +43,7 @@ export default (appInfo: EggAppInfo) => {
     tags: [],
     imgs: [],
     resume: "",
+    articleIds:[]
   };
 
   config.secret = "wangshouren&huangsenya";
