@@ -27,7 +27,7 @@ export default (appInfo: EggAppInfo) => {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: ["http://127.0.0.1:3000", "http://127.0.0.1:5000"], //[]中放放出的白名单，*代表所有
+    domainWhiteList: ["http://121.4.95.151","http://121.4.95.151:9000"], //[]中放放出的白名单，*代表所有
   };
   config.cors = {
     // origin: "http://127.0.0.1:3000",
@@ -61,7 +61,7 @@ export default (appInfo: EggAppInfo) => {
     renew: true, //延长会话有效期
   };
 
-  config.host = "121.4.95.151:7001";
+  config.host = "http://121.4.95.151:7001";
 
   // the return config will combines to EggAppConfig
   return {

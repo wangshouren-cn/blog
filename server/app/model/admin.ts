@@ -15,6 +15,7 @@ module.exports = (app) => {
         updateTime: schemaTypes.timeStrap,
         email: schemaTypes.strDefaultEmpty,
         articleIds:["string"]
+
       },
       {
         collection: "admin",

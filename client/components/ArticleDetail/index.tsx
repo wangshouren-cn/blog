@@ -27,7 +27,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({
 
   const { user, setUser } = useUser();
 
-  const isLiked = user && user.articleIds.includes(_id);
+  const isLiked = user?.articleIds?.includes(_id);
 
   const handleLike = useCallback(
     async () => {

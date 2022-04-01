@@ -1057,11 +1057,6 @@
     "is-date-object" "^1.0.1"
     "is-symbol" "^1.0.2"
 
-"esbuild-windows-64@0.14.27":
-  "integrity" "sha512-b3y3vTSl5aEhWHK66ngtiS/c6byLf6y/ZBvODH1YkBM+MGtVL6jN38FdHUsZasCz9gFwYs/lJMVY9u7GL6wfYg=="
-  "resolved" "https://registry.npmmirror.com/esbuild-windows-64/-/esbuild-windows-64-0.14.27.tgz"
-  "version" "0.14.27"
-
 "esbuild@^0.14.14":
   "integrity" "sha512-MZQt5SywZS3hA9fXnMhR22dv0oPGh6QtjJRIYbgL1AeqAoQZE+Qn5ppGYQAoHv/vq827flj4tIJ79Mrdiwk46Q=="
   "resolved" "https://registry.npmmirror.com/esbuild/-/esbuild-0.14.27.tgz"
@@ -2211,10 +2206,10 @@
     "react-is" "^16.12.0"
     "shallowequal" "^1.1.0"
 
-"react-blog-library@^3.4.11":
-  "integrity" "sha512-jJdemURzVZtRaJqt2B2Q8zd2oy6thj2APzFeDlKwwQTItd7H5rHip+cEm0Ooir38fzr7nQJVhS1MLpkdckqr0g=="
-  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.11.tgz"
-  "version" "3.4.11"
+"react-blog-library@^3.4.12":
+  "integrity" "sha512-2HfTNBlmOGztAYpxw922yoBAS6aD4keZb4ZXjswAEqaucyDN1oKDh6xcfsOGn8oa2Xhf9VbTOy8toK0lbDG+DQ=="
+  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.12.tgz"
+  "version" "3.4.12"
 
 "react-color@^2.14.1":
   "integrity" "sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA=="

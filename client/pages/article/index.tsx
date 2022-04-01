@@ -30,6 +30,8 @@ const Article: React.FC<ArticleProps> = (props) => {
 
   const { user, setUser } = useUser();
 
+  const forceUpdate = useForceUpdate();
+
   const ref = useRef<any>();
 
   useEffect(() => {
@@ -91,6 +93,8 @@ const Article: React.FC<ArticleProps> = (props) => {
         comments.push(newComment);
       }
 
+      forceUpdate();
+
       Message.success("回复成功");
     },
     [router, user, comments]
@@ -98,7 +102,7 @@ const Article: React.FC<ArticleProps> = (props) => {
 
   
 
-  const isLiked = user && user.articleIds.includes(_id);
+  const isLiked = user && user?.articleIds?.includes(_id);
 
   return (
     // @ts-ignore
