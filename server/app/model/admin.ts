@@ -13,7 +13,8 @@ module.exports = (app) => {
         resume: schemaTypes.strDefaultEmpty,
         createTime: schemaTypes.timeStrap,
         updateTime: schemaTypes.timeStrap,
-        email: schemaTypes.strDefaultEmpty,
+	email: schemaTypes.strDefaultEmpty,
+	articleIds:["string"]
       },
       {
         collection: "admin",

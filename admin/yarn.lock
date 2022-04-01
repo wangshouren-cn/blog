@@ -2206,10 +2206,10 @@
     "react-is" "^16.12.0"
     "shallowequal" "^1.1.0"
 
-"react-blog-library@^3.4.11":
-  "integrity" "sha512-jJdemURzVZtRaJqt2B2Q8zd2oy6thj2APzFeDlKwwQTItd7H5rHip+cEm0Ooir38fzr7nQJVhS1MLpkdckqr0g=="
-  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.11.tgz"
-  "version" "3.4.11"
+"react-blog-library@^3.4.12":
+  "integrity" "sha512-2HfTNBlmOGztAYpxw922yoBAS6aD4keZb4ZXjswAEqaucyDN1oKDh6xcfsOGn8oa2Xhf9VbTOy8toK0lbDG+DQ=="
+  "resolved" "https://registry.npmjs.org/react-blog-library/-/react-blog-library-3.4.12.tgz"
+  "version" "3.4.12"
 
 "react-color@^2.14.1":
   "integrity" "sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA=="
