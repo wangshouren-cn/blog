@@ -22,14 +22,28 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
-
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true,
+    },
+    domainWhiteList: ["http://121.4.95.151", "http://121.4.95.151:9000", "http://121.4.95.151:7001", "http://127.0.0.1", "http://127.0.0.1:9000", "http://127.0.0.1:7001", "http://192.168.43.214", "http://192.168.43.214", "http://192.168.43.214:9000", "http://192.168.43.214:7001"], //[]中放放出的白名单，*代表所有
+  };
   config.cors = {
     // origin: "http://127.0.0.1:3000",
-    // allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
+    // origin: (ctx: Context) => {
+    //   console.log("ctx.request.origin", ctx.request.origin);
+    //   console.log("ctx.request.host", ctx.request.host);
+    //   console.log("ctx.request.hostname", ctx.request.hostname);
+    //   return ctx.respo
+    // },
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
     maxAge: 60 * 60 * 24, //1天
     allowHeaders: ["Content-type", "Authorization"],
     credentials: true,
   };
+
+
 
   config.adminInitialInfo = {
     username: "wangshouren",
@@ -37,7 +51,7 @@ export default (appInfo: EggAppInfo) => {
     tags: [],
     imgs: [],
     resume: "",
-    articleIds:[]
+    articleIds: []
   };
 
   config.secret = "wangshouren&huangsenya";
