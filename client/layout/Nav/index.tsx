@@ -26,19 +26,19 @@ import { login } from "../../api/user";
 import Register from "../../components/Register";
 import useUser from "../../utils/useUser";
 import { useRouter } from "next/router";
+import useThrottle from "../../utils/useThrottle";
+import useDebounce from "../../utils/useDebounce";
 const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
   const { user, setUser, clearUser } = useUser();
 
   const router = useRouter();
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        //@ts-ignore
-        onSearch({ title: e.target.value });
-      }
+  const handleChange = useDebounce(
+    (title: string) => {
+      onSearch({ title });
     },
-    [onSearch]
+    [onSearch],
+    { delay: 1000, first: false }
   );
 
   const onLogined = useCallback((token: string, user: User) => {
@@ -63,11 +63,12 @@ const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
   }, []);
 
   const homeClick = useCallback(() => {
+    sessionStorage.removeItem("scrollTop");
     router.push("/");
   }, []);
 
   return (
-    <nav className={classnames(styles.navBox)}>
+    <nav className={classnames(styles.nav)}>
       <div className={classnames(styles.head)}>
         <div className={classnames(styles.avatarBox)}>
           <Img
@@ -76,11 +77,16 @@ const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
             src="http://demo.qzhai.net/gohan/wp-content/uploads/2020/01/stock-photo-1005217204-1-100x100.png"
           />
         </div>
-        <div>
-          <h1 className={classnames(styles.h1)}>衫小小寨</h1>
-        </div>
+        <h1 className={classnames(styles.h1)}>首人小寨</h1>
       </div>
       <ul className={classnames(styles.footer)}>
+        <li>
+          <Input
+            onChange={handleChange}
+            className={classnames(styles.input)}
+            placeholder="搜索"
+          />
+        </li>
         <li
           onClick={homeClick}
           className={classnames(styles.li, {
@@ -93,20 +99,21 @@ const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
         {user ? (
           <>
             <li
+              onClick={() => onCollect(user._id)}
               className={classnames(styles.li, {
                 active: stringifySearch(router.query as any).includes("userId"),
               })}
             >
-              <span onClick={() => onCollect(user._id)}>收藏</span>
+              <span >收藏</span>
             </li>
-            <li>
+            <li onClick={() => {
+              Modal.confirm({
+                content: "确定要退出吗？",
+                onOk: clearUser,
+              });
+            }}>
               <span
-                onClick={() => {
-                  Modal.confirm({
-                    content: "确定要退出吗？",
-                    onOk: clearUser,
-                  });
-                }}
+
               >
                 退出
               </span>
@@ -114,22 +121,16 @@ const Nav: React.FC<NavProps> = ({ onSearch, onCollect }) => {
           </>
         ) : (
           <>
-            <li>
-              <span onClick={userRegister}>注册</span>
+            <li onClick={userRegister}>
+              <span >注册</span>
             </li>
-            <li>
-              <span onClick={userLogin}>登录</span>
+            <li onClick={userLogin}>
+              <span >登录</span>
             </li>
           </>
         )}
 
-        <li>
-          <Input
-            onKeyDown={onKeyDown}
-            className={classnames(styles.input)}
-            placeholder="搜索"
-          />
-        </li>
+
       </ul>
     </nav>
   );

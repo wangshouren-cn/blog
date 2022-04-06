@@ -17,12 +17,15 @@
   margin-bottom: 1.5rem;
   text-align: center;
 }
-.emailBox > .form-item {
+
+.emailBox>.form-item {
   margin: 0;
 }
-.emailBox > button {
+
+.emailBox>button {
   margin-left: 0.5rem;
 }
+
 .emailBox {
   display: flex;
   flex-direction: row;

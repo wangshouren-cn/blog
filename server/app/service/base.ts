@@ -6,6 +6,23 @@ import { ErrDataResult, ErrListResult } from "../../typings";
  */
 
 export default class BaseService extends Service {
+
+  async getUserOrAdminById(id: string): Promise<ErrDataResult> {
+
+    let err, data;
+
+    const res1 = await this.service.user.findById(id);
+
+    if (res1.err || res1.data) return res1;
+
+    const res2 = await this.service.admin.findById(id);
+
+    if (res2.err || res2.data) return res2;
+
+    return { err, data }
+
+  }
+
   /**
    * @description:获取列表
    * @param {*模型名称 admin article category comment user tag} modelName
@@ -56,7 +73,7 @@ export default class BaseService extends Service {
     try {
       data = await ctx.model[this.name].findByIdAndUpdate(id, update, {
         new: true,
-      });
+      }).lean();
 
       if (data && data.password) {
         data.password = null;

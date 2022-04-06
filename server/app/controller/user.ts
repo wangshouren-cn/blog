@@ -1,6 +1,5 @@
 import BaseController from "./base";
 
-const nodemailer = require("nodemailer");
 export default class extends BaseController {
   name = "User";
   serviceName = "user";
@@ -26,7 +25,7 @@ export default class extends BaseController {
    * @return {*}
    */
   async sendMail(isCheckEmailExisted: boolean = false) {
-    const { ctx, app } = this;
+    const { ctx } = this;
     const { email } = this.ctx.request.body;
 
     if (isCheckEmailExisted) {
@@ -43,37 +42,8 @@ export default class extends BaseController {
     this.ctx.session.code = code;
     this.ctx.session.email = email;
 
-    // this.ctx.session.emailValidate = {
-    //   code,
-    //   email,
-    //   // time: Date.now() + 1000 * 60, //1分钟有效期  egg-session自己内置了
-    // };
-
-    const { user, pass } = app.config.emailInfo;
-
-    const mailTransport = nodemailer.createTransport({
-      service: "qq",
-      secureConnection: true, // 使用SSL方式（安全方式，防止被窃取信息）
-      port: 465,
-      auth: {
-        user, //发送邮件的邮箱
-        pass, //第三方授权密码，POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务
-      },
-    });
-
-    const mailOptions = {
-      from: user,
-      to: email,
-      subject: "博客邮箱验证码",
-      text: code,
-    };
-
-    try {
-      await mailTransport.sendMail(mailOptions);
-      this.success(null, "发送成功");
-    } catch (e) {
-      this.error(e, "发送失败");
-    }
+    let err = await this._sendMail(email, "邮箱验证码——首人小寨", code);
+    this.handleErrData(err, "发送成功")
   }
 
   /**
@@ -124,18 +94,20 @@ export default class extends BaseController {
 
     const { ctx, service, app } = this;
 
+    let isAdmin = false;
+
     const ivs = ctx.helper.isValidString;
     if (!ivs(username) || !ivs(password)) return this.paramsValidateFailed();
 
-    const { err: err1, data: data1 } = await service.user.findOne({
+    const { err: err1, data: user } = await service.user.findOne({
       $or: [{ username }, { email: username }],
     });
 
-    const { err: err2, data: data2 } = await service.admin.findOne({
+    const { err: err2, data: admin } = await service.admin.findOne({
       $or: [{ username }, { email: username }],
     });
 
-    const data = data1 || data2;
+    const data = user || admin;
     const err = err1 || err2;
 
     if (err) return this.error(err);
@@ -146,7 +118,10 @@ export default class extends BaseController {
     const { email } = data;
 
     if (app.comparePassword(password, salPwd, app)) {
-      const token = this.genToken(username, id, false, email);
+
+      if (admin) isAdmin = true;
+
+      const token = this.genToken(username, id, isAdmin, email);
 
       delete data.password;
 
@@ -245,13 +220,13 @@ export default class extends BaseController {
     }
   }
 
-  async shouldUpdate(_id,{
+  async shouldUpdate(_id, {
     username,
-    
+
   }: any): Promise<{ should: boolean; reason: string }> {
 
     if (_id != this.ctx.tokenInfo.id) {
-      return {should:false,reason:"没有访问权限"}
+      return { should: false, reason: "没有访问权限" }
     }
 
     let should = true,
@@ -267,5 +242,47 @@ export default class extends BaseController {
     }
 
     return { should, reason };
+  }
+
+  async onUpdated(oldData: any, newData: any, body: any): Promise<void> {
+
+    const { ctx, service } = this;
+
+    const { articleIds } = body;
+
+    const { id: userId } = ctx.tokenInfo
+    console.log("ctx.tokenInfo", ctx.tokenInfo);
+    if (ctx.tokenInfo.isAdmin && articleIds) {
+
+
+      //如果是管理员且做的是收藏文章，那么做特殊处理
+      const oldRes = await service.admin.findById(userId);
+      oldData = oldRes.data;
+      const newRes = await service.admin.update(userId, { articleIds });
+      newData = newRes.data;
+    }
+
+    //对文章喜欢数量做更改
+    const oldAtcIds = oldData.articleIds as string[];
+    const newAtcIds = newData.articleIds as string[];
+
+    for (let index = 0, len = newAtcIds.length; index < len; index++) {
+
+      const atcId = newAtcIds[index];
+
+      const oldIndex = oldAtcIds.indexOf(atcId);
+
+      if (oldIndex >= 0) {
+        oldAtcIds.splice(oldIndex, 1);
+      } else {
+        return await service.article.increaseLikeNum(atcId);
+      }
+
+    }
+
+    while (oldAtcIds.length > 0) {
+      await service.article.decreaseLikeNum(oldAtcIds.pop() as string);
+    }
+
   }
 }

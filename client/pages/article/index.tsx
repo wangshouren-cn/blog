@@ -1,26 +1,24 @@
 import { useRouter } from "next/router";
-import React, { HTMLAttributes, useCallback, useEffect, useRef } from "react";
+import React, { HTMLAttributes, useEffect } from "react";
 import {
   ButtonWithInput,
-  formatTimeStrap,
   getArticleById,
   Img,
-  Loading,
   useHttpData,
   Message,
-  Tip,
   useForceUpdate,
+  MdLook,
 } from "react-blog-library";
-import { createComment, updateUser } from "../../api";
+import { createComment } from "../../api";
 import Comment from "../../components/Comment";
-import Icon from "../../components/Icon";
-import Layout from "../../layout";
 import useUser from "../../utils/useUser";
 import styles from "./index.module.css";
-import classnames from "classnames";
 import ArticleDetail from "../../components/ArticleDetail";
-
-export interface ArticleProps extends HTMLAttributes<any> {}
+import Back from "../../components/Back";
+import Loading from "../../components/Loading";
+import 'highlight.js/styles/a11y-light.css'
+import 'highlight.js/styles/default.css'
+export interface ArticleProps extends HTMLAttributes<any> { }
 const Article: React.FC<ArticleProps> = (props) => {
   const router = useRouter();
 
@@ -32,7 +30,6 @@ const Article: React.FC<ArticleProps> = (props) => {
 
   const forceUpdate = useForceUpdate();
 
-  const ref = useRef<any>();
 
   useEffect(() => {
     if (!router.query.id) return;
@@ -41,32 +38,33 @@ const Article: React.FC<ArticleProps> = (props) => {
 
   const {
     title,
-    tags,
     content,
-    category,
-    createTime,
-    likeNum,
     cover,
     comments,
     _id,
   } = data;
 
+  const hash = router.asPath.split("#")[1];
+
   useEffect(() => {
-    if (ref.current) {
-      ref.current.appendChild(
-        document.createRange().createContextualFragment(content)
-      );
-    }
-  }, [content]);
+
+    if (!hash || loading) return;
+
+    router.push(router.asPath);
 
 
-  const handleReply = useCallback(
+  }, [hash, loading]);
+
+
+
+  const handleReply =
     async (
       targetCommentId: string | null,
       content: string,
       targetComment?: ArticleComment
     ) => {
-      if (!user) return Message.error("您还没有登录");
+
+      if (!user) return Message.error("动动手指登录下吧~");
 
       content = content.trim();
 
@@ -96,25 +94,20 @@ const Article: React.FC<ArticleProps> = (props) => {
       forceUpdate();
 
       Message.success("回复成功");
-    },
-    [router, user, comments]
-  );
+    }
 
-  
-
-  const isLiked = user && user?.articleIds?.includes(_id);
 
   return (
-    // @ts-ignore
-    <Loading className={ styles.loading} loading={loading}>
+    <Loading loading={loading}>
       <div className={styles.container}>
         <div className={styles.articleContainer}>
+          <Back className={styles.back} />
           <h1 className={styles.title}>{title}</h1>
           <ArticleDetail article={data} />
           {cover && cover.url ? (
             <Img className={styles.cover} src={cover.url} />
           ) : null}
-          <article ref={ref}></article>
+          <article ><MdLook markdown={content} /></article>
           <div className={styles.operation}>
             <span className={styles["operation-like"]}></span>
           </div>
@@ -143,6 +136,8 @@ const Article: React.FC<ArticleProps> = (props) => {
             //@ts-ignore
             placeholder="说点什么..."
             buttonPos="right"
+            //@ts-ignore
+            autoClear={true}
           >
             评论
           </ButtonWithInput>

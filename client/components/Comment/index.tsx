@@ -46,7 +46,7 @@ const Comment: React.FC<CommentProps> = ({
   const ref: MutableRefObject<any> = useRef();
 
   const handleReplyClick = useCallback(() => {
-    if (!user) return Message.error("请先登录");
+    if (!user) return Message.error("动动手指登录下吧~");
 
     if (showReplyInput) return;
     setShowReplyInput(true);
@@ -72,60 +72,62 @@ const Comment: React.FC<CommentProps> = ({
   const handleReply = useCallback(async (e, content: string) => {
     await onReply(_id, content, fatherComment || articleComment);
     setShowReplyInput(false);
-  }, []);
+  }, [onReply]);
 
   return (
-    <div className={styles.container} {...props}>
-      <div className={styles.left}>
-        <Icon className={styles.avatar} type="icon-user-avatar-full-fill" />
-      </div>
-
-      <div className={styles.right}>
-        <div className={styles.username}>
-          {username || "空空空空空空"}{" "}
-          {typeof forUsername === "string"
-            ? `回复了 ${forUsername || "空空空空空空"}`
-            : null}
+    <div id={_id} className={styles.container} {...props}>
+      <div className={styles.body}>
+        <div className={styles.left}>
+          <Icon className={styles.avatar} type="icon-user-avatar-full-fill" />
         </div>
 
-        <div>
-          <span className={styles.time}>{formatTimeStrap(createTime)}</span>
-          <span className={styles.reply} onClick={handleReplyClick}>
-            回复
-          </span>
-        </div>
-
-        <div className={styles.content}>{content || "空空空空空空"}</div>
-
-        {showReplyInput ? (
-          <div ref={ref} className={styles.replyBox}>
-            <ButtonWithInput
-              onButtonClick={handleReply}
-              // @ts-ignore
-              placeholder="请输入评论内容"
-              buttonPos="right"
-            >
-              确定
-            </ButtonWithInput>
+        <div className={styles.right}>
+          <div className={styles.username}>
+            {username || "空空空空空空"}{" "}
+            {typeof forUsername === "string"
+              ? <span className={styles.usernameAddition} >{`回复了 ${forUsername || "空空空空空空"}`}</span>
+              : null}
           </div>
-        ) : null}
 
-        {children
-          ? children.map((comment) => (
-              <Comment
-                fatherComment={articleComment}
-                onReply={onReply}
-                style={{
-                  backgroundColor: "rgba(193,193,193,0.1)",
-                  // marginBottom: "1rem",
-                  borderBottom: "none",
-                }}
-                key={comment._id}
-                articleComment={comment}
-              />
-            ))
-          : null}
+          <div>
+            <span className={styles.time}>{formatTimeStrap(createTime)}</span>
+            <span className={styles.reply} onClick={handleReplyClick}>
+              回复
+            </span>
+          </div>
+
+          <div className={styles.content}>{content || "空空空空空空"}</div>
+
+          {showReplyInput ? (
+            <div ref={ref} className={styles.replyBox}>
+              <ButtonWithInput
+                onButtonClick={handleReply}
+                // @ts-ignore
+                placeholder="请输入评论内容"
+                buttonPos="right"
+              >
+                确定
+              </ButtonWithInput>
+            </div>
+          ) : null}
+        </div>
       </div>
+
+      {children && children.length > 0
+        ? <div className={styles.children} >{children.map((comment) => (
+          <Comment
+            fatherComment={articleComment}
+            onReply={onReply}
+            style={{
+              backgroundColor: "rgba(193,193,193,0.1)",
+              // marginBottom: "1rem",
+              borderBottom: "none",
+            }}
+            key={comment._id}
+            articleComment={comment}
+          />
+        ))}
+        </div> : null}
     </div>
   );
 };

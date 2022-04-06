@@ -9,14 +9,16 @@ import Aside from "./Aside";
 import useHttpListData from "../utils/useHttpListData";
 import { getCategoryList, getTagList } from "react-blog-library/lib";
 import { useEffect } from "react";
+import BackTop from "../components/BackTop";
+import Loading from "../components/Loading";
 
 const Layout: NextPage<{
   onSearch: (search: ArticleSearchParams) => any;
-  onCollect:(userId:string)=>any
-}> = ({ children, onSearch,onCollect }) => {
-  const { list: categories, run } = useHttpListData(getCategoryList);
+  onCollect: (userId: string) => any
+}> = ({ children, onSearch, onCollect }) => {
+  const { list: categories, run, loading: categoriesLoading } = useHttpListData(getCategoryList);
 
-  const { list: tags, run:runTags } = useHttpListData(getTagList);
+  const { list: tags, run: runTags, loading: tagsLoading } = useHttpListData(getTagList);
 
   useEffect(() => {
     run();
@@ -26,25 +28,30 @@ const Layout: NextPage<{
   return (
     <div>
       <Head>
-        <title>博客</title>
+        <title>首人小寨</title>
         <meta name="description" content="博客文章" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
         <div className={classnames(styles.container)}>
-          <div>
-            <Nav onCollect={ onCollect} style={{ display: "inline-block" }} onSearch={onSearch} />
+          <div className={styles["layout-nav"]}>
+            <Nav onCollect={onCollect} style={{ display: "inline-block" }} onSearch={onSearch} />
           </div>
-          <Main style={{ display: "inline-block" }}>{children}</Main>
-          <div>
-            <Aside
-              onSearch={onSearch}
-              style={{ display: "inline-block" }}
-              categories={categories}
-              tags={ tags}
-            />
+          <div className={classnames(styles.second)}>
+            <div className={styles["layout-main"]}><Main >{children}</Main></div>
+            <div className={styles["layout-aside"]}>
+              <Loading loading={categoriesLoading || tagsLoading}>
+                <Aside
+                  onSearch={onSearch}
+                  style={{ display: "inline-block" }}
+                  categories={categories}
+                  tags={tags}
+                />
+              </Loading>
+            </div>
           </div>
         </div>
+        <BackTop />
       </div>
     </div>
   );

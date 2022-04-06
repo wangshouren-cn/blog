@@ -1,0 +1,12 @@
+.main {
+  box-shadow: 0 .2rem 1rem rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: calc(100vw - 30rem);
+  border-radius: .3rem;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    width: 100%;
+  }
+}

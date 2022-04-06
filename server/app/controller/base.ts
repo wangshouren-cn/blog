@@ -1,5 +1,6 @@
 import { Controller } from "egg";
 import { ErrDataResult, ErrListResult } from "../../typings";
+const nodemailer = require("nodemailer");
 
 export default class BaseController extends Controller {
   name: string;
@@ -18,7 +19,39 @@ export default class BaseController extends Controller {
     );
   }
 
-  
+  async _sendMail(to: string, subject: string, text: string): Promise<ErrDataResult> {
+
+    let err, data;
+
+    const { user, pass } = this.app.config.emailInfo;
+
+    const mailTransport = nodemailer.createTransport({
+      service: "qq",
+      secureConnection: true, // 使用SSL方式（安全方式，防止被窃取信息）
+      port: 465,
+      auth: {
+        user, //发送邮件的邮箱
+        pass, //第三方授权密码，POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务
+      },
+    });
+
+    const mailOptions = {
+      from: user,
+      to,
+      subject,
+      text,
+    };
+
+    try {
+      data = await mailTransport.sendMail(mailOptions);
+    } catch (e) {
+      err = e
+    } finally {
+      return { err, data };
+    }
+  }
+
+
 
   public async index() {
     const { ctx, service } = this;
@@ -54,7 +87,7 @@ export default class BaseController extends Controller {
       request: { body },
     } = ctx;
 
-    const { should, reason } = await this.shouldUpdate(id,body);
+    const { should, reason } = await this.shouldUpdate(id, body);
     if (should) {
       const { data: oldData } = await service[this.serviceName].findById(id);
       const res: ErrDataResult = await service[this.serviceName].update(
@@ -62,7 +95,7 @@ export default class BaseController extends Controller {
         body
       );
 
-      if (!res.err) this.onUpdated(oldData, res.data);
+      if (!res.err) this.onUpdated(oldData, res.data, body);
 
       this.handleErrData(res, "已保存");
     } else {
@@ -76,6 +109,11 @@ export default class BaseController extends Controller {
     const { should, reason } = await this.shouldCreate(body);
     if (should) {
       const res = await service[this.serviceName].create(body);
+
+      if (res.data) {
+        this.onCreated(res.data, body);
+      }
+
       this.handleErrData(res, "创建成功");
     } else {
       this.error(reason);
@@ -144,7 +182,7 @@ export default class BaseController extends Controller {
     };
   }
 
-  async shouldUpdate(_id,_body) {
+  async shouldUpdate(_id, _body) {
     return {
       should: true,
       reason: "",
@@ -156,19 +194,26 @@ export default class BaseController extends Controller {
    * @param {*} _newData
    * @return {*}
    */
-  async onUpdated(_oldData, _newData) {}
+  async onUpdated(_oldData, _newData, _body) { }
 
   /**
    * @description: 删除过后的回调
    * @return {*}
    */
-  async onDestroyed(_destroyedData) {}
+  async onDestroyed(_destroyedData) { }
 
   /**
    * @description: 查询列表过后的回调
    * @return {*}
    */
-  async onQueried(_res: ErrListResult) {}
+  async onQueried(_res: ErrListResult) { }
 
- 
+
+  /**
+  * @description: 创建数据过后的回调
+  * @return {*}
+  */
+  async onCreated(_newData, _body) { }
+
+
 }

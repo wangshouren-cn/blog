@@ -59,7 +59,7 @@ const FunctionComponent: React.FC<RegisterProps> = ({ onRegistered }) => {
       return Message.error("邮箱好像不正确");
     } else {
 
-       await sendCode({ email: formStore.getValue("email") });
+      await sendCode({ email: formStore.getValue("email") });
       sendState.timer = 5;
       await sendCode({ email: formStore.getValue("email") });
       sendState.disabled = true;

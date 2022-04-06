@@ -1,15 +1,17 @@
 .container {
-  background-color: white;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
   display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid var(--color-border);
+  flex-direction: column;
 }
+
+.container:target>.body {
+  background-color: var(--color-light-green) !important;
+}
+
 .avatar {
   font-size: 2.5rem;
   color: var(--color-gray);
 }
+
 .right {
   margin-left: 1rem;
   display: flex;
@@ -21,21 +23,28 @@
   font-size: var(--font-size-small);
 }
 
+.usernameAddition {
+  font-size: .7rem;
+}
+
 .time {
   font-size: 0.75rem;
   padding-right: 1rem;
   border-right: 1px solid var(--color-border);
   border-right: 1px solid var(--color-border);
 }
+
 .reply {
   margin-left: 1rem;
   font-size: 0.75rem;
   color: var(--color-gray);
   cursor: pointer;
 }
+
 .reply:hover {
   color: var(--color-font);
 }
+
 .content {
   margin: 1rem 0;
 }
@@ -44,10 +53,34 @@
   margin: 1rem 0;
 }
 
-.replyBox > span {
+.replyBox>span {
   width: 100%;
 }
 
-.replyBox > span > input {
+.replyBox>span>input {
   flex: 1;
+}
+
+.body {
+  background-color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+}
+
+.children .body {
+  background-color: #f4f5f8;
+  padding-left: 2rem;
+  border-bottom: none;
+}
+
+.children .container:last-child {
+  border-bottom: 1px solid var(--color-border) !important;
 }

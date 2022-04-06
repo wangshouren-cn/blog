@@ -1,17 +1,20 @@
-import BraftEditor from "braft-editor";
-import "braft-editor/dist/index.css";
-import  {
+import {
   HTMLAttributes,
   useCallback,
+  useState,
 } from "react";
-import { FormStore,Message, Modal, TagBox, Form, FormItem, Input, Button, SingleUpload, getCategoryList, getTagList, upload } from "react-blog-library";
 
+import { FormStore, Message, Modal, TagBox, Form, FormItem, Input, Button, SingleUpload, getCategoryList, getTagList, upload, Editor } from "react-blog-library";
 
 interface EditFormProps extends HTMLAttributes<any> {
   form: FormStore;
 }
 
 const EditForm = ({ form }: EditFormProps) => {
+
+  const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
+
+
   const editTag = useCallback(async () => {
     const { list } = await getTagList();
 
@@ -27,13 +30,13 @@ const EditForm = ({ form }: EditFormProps) => {
       content: (
         <TagBox
           value={allTags}
-          onActiveChange={(tags:string[]) => {
+          onActiveChange={(tags: string[]) => {
             activeTags = tags;
           }}
           defaultActiveState={form.getValue("tags")}
         />
       ),
-      onCancel() {},
+      onCancel() { },
       onOk() {
         form.setValues({
           tags: activeTags,
@@ -57,7 +60,7 @@ const EditForm = ({ form }: EditFormProps) => {
       content: (
         <TagBox
           defaultActiveState={lastCategory ? [lastCategory] : []}
-          beforeActiveChange={(_:any, tag:any, toActive:boolean) => {
+          beforeActiveChange={(_: any, tag: any, toActive: boolean) => {
             if (toActive) {
               category = tag;
               return [tag];
@@ -79,18 +82,16 @@ const EditForm = ({ form }: EditFormProps) => {
     });
   }, []);
 
+  const [value, setValue] = useState("");
+  const plugins = ['header', 'image', 'table', 'my-plugins', 'link', 'clear', 'logger', 'mode-toggle', 'full-screen'];
   return (
     <Form formStore={form}>
       <FormItem rules={[{ required: true }]} label="文章标题" field="title">
         <Input />
       </FormItem>
       <FormItem label="文章内容" field="content">
-        <BraftEditor
-          id="editor-with-code-highlighter"
-          style={{ width: "90%" }}
-        />
+        <Editor />
       </FormItem>
-
       <FormItem label="分类" field="category">
         <>
           <TagBox

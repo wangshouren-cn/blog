@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import { CSSProperties } from "react";
-const Main: NextPage<{
-  style: CSSProperties;
-}> = ({ children, style }) => {
-  return <main style={style}>{children}</main>;
+import styles from './index.module.css'
+const Main: NextPage = ({ children }) => {
+  return <main className={styles.main}>{children}</main>;
 };
 
 export default Main;

@@ -15,7 +15,7 @@ export default function <Data, SearchParams>(
 
   const setSearch: (partialSearch: SearchParams) => void = useCallback(
     (partialSearch: SearchParams) => {
-      const search = ref.current.search;
+      const search = router.query;
 
       Object.assign(search, partialSearch);
 
@@ -36,7 +36,7 @@ export default function <Data, SearchParams>(
 
     forceUpdate();
 
-    let data = {},
+    let data = {} as any,
       error;
 
     try {
@@ -49,6 +49,8 @@ export default function <Data, SearchParams>(
     Object.assign(state, { ...data, error, loading: false });
 
     forceUpdate();
+
+    return data.list as Data[];
   }, [router]);
 
   const setSearchAndRun: (partialSearch: SearchParams) => void = useCallback(
@@ -63,7 +65,7 @@ export default function <Data, SearchParams>(
     ListData<Data> & {
       loading: boolean;
       error: any;
-      run: () => Promise<void>;
+      run: () => Promise<Data[]>;
       search: SearchParams;
       setSearchAndRun: (partialSearch: SearchParams) => void;
       setSearch: (partialSearch: SearchParams) => void;

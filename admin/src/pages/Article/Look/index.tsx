@@ -1,9 +1,10 @@
-import React, { HTMLAttributes, useEffect } from "react";
+import React, { HTMLAttributes, MutableRefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import "braft-editor/dist/output.css";
-import { getArticleById, Loading, Message, SaveBar, useHttpData } from "react-blog-library";
-
-export interface LookProps extends HTMLAttributes<any> {}
+import { getArticleById, Loading, Message, SaveBar, useHttpData, mdParser, MdLook } from "react-blog-library";
+import 'highlight.js/styles/a11y-light.css'
+import 'highlight.js/styles/default.css'
+export interface LookProps extends HTMLAttributes<any> { }
 const Look: React.FC<LookProps> = () => {
   const [params] = useSearchParams();
 
@@ -24,12 +25,7 @@ const Look: React.FC<LookProps> = () => {
 
   return (
     <Loading loading={loading}>
-      {data && (
-        <div
-          className="braft-output-content"
-          dangerouslySetInnerHTML={{ __html: data!.content }}
-        ></div>
-      )}
+      <MdLook markdown={data.content} />
       <SaveBar showBack />
     </Loading>
   );

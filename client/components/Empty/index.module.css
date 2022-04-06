@@ -1,0 +1,7 @@
+.empty{
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-gray);
+}

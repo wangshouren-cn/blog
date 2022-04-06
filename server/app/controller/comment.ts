@@ -12,7 +12,7 @@ export default class extends BaseController {
       filterQuery.auditStatus = query.auditStatus;
     }
 
-    if (query.articleId ) {
+    if (query.articleId) {
       filterQuery.articleId = query.articleId;
     }
 
@@ -121,6 +121,36 @@ export default class extends BaseController {
     }
 
     return Promise.all(promises);
+  }
+
+  /**
+ * @description: 回复信息邮箱通知
+ * @return {*}
+ */
+  async onCreated(data: any, _body: any): Promise<void> {
+
+    const { targetCommentId, userId, content } = data
+
+    const { service, app } = this;
+
+    const { data: fromUser } = await service.user.getUserOrAdminById(userId);
+    if (!fromUser) return;
+
+    //发给admin
+
+
+    const { data: targetComment } = await service.comment.findById(targetCommentId);
+    if (!targetComment) {
+      //发给admin
+      await this._sendMail(this.app.config.emailInfo.user, fromUser.username + " 在您的文章下留言——来自首人小寨", `回复内容：${content} 文章链接：${app.config.clientUrl}/article?id=${data.articleId}#${data._id}`)
+      return;
+    }
+
+    const { data: toUser } = await service.user.getUserOrAdminById(targetComment.userId);
+    if (!toUser) return;
+
+    await this._sendMail(toUser.email, fromUser.username + " 回复了您——来自首人小寨", `回复内容：${content} 文章链接：${app.config.clientUrl}/article?id=${targetComment.articleId}#${data._id}`)
+
   }
 
 }

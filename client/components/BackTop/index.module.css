@@ -1,0 +1,18 @@
+.backTop {
+  font-size: 2rem;
+  padding: .5rem;
+  position: fixed;
+  right: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgb(68, 206, 246);
+  bottom: 10vh;
+  text-align: center;
+  color: white;
+  box-shadow: 0 .2rem 1rem rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.backTop svg {
+  transform: translateX(.1rem);
+}

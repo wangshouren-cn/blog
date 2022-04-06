@@ -8,45 +8,12 @@ import useHttpListData from "../utils/useHttpListData";
 import ArticleList from "../components/ArticleList";
 import { useRouter } from "next/router";
 import styles from "./index.module.css";
+import Loading from "../components/Loading";
 const Home: NextPage = () => {
-  const {
-    run,
-    list: articleList,
-    loading,
-    search,
-    page,
-    total,
-    pageSize,
-    setSearchAndRun,
-  } = useHttpListData<Article, ArticleSearchParams>(getArticleList);
-
-  const router = useRouter();
-
-  //callbacks hooks
-
-  const ref = useRef<any>();
-
-  const refresh = useCallback(() => {
-    run();
-  }, [run]);
-
-  useEffect(() => {
-    refresh();
-
-  }, [stringifySearch(router.query as any), refresh]);
 
   return (
-    <div className={ styles.container} ref={ref}>
-      <ArticleList articles={articleList} />
-      <div className={styles.pageOperations}>
-        {page < Math.ceil(total / pageSize) ? (
-          <Button onClick={() => setSearchAndRun({ page: page + 1 })}>
-            下一页
-          </Button>
-        ) : (
-          "已经到底了..."
-        )}
-      </div>
+    <div className={styles.container}>
+      <ArticleList api={getArticleList} />
     </div>
   );
 };

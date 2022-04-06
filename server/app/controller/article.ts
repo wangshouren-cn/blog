@@ -117,9 +117,19 @@ export default class extends BaseController {
     let filterQuery: any = {};
 
     if (query.userId) {
-      const { data } = await this.service.user.findById(query.userId);
-      if (data) {
+      let { data } = await this.service.user.findById(query.userId);
+      if (!data) {
+        let res = await this.service.admin.findById(query.userId);
+
+        data = res.data;
+      }
+
+      console.log("data", data);
+
+      if (data.articleIds.length > 0) {
         filterQuery.$or = data.articleIds.map((_id) => ({ _id }));
+      } else {
+        return { likeNum: -100 };
       }
     }
 

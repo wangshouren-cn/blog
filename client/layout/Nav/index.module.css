@@ -1,13 +1,67 @@
-.navBox {
-  display: inline-flex;
-  flex-direction: column;
+.nav {
   background-color: #fff;
-  text-align: center;
-  transition: box-shadow 0.1s ease-in-out;
-  border-radius: 0.5rem;
   position: sticky;
   top: 0;
-  box-shadow: 0 .2rem 1rem rgba(0,0,0,0.02);
+  box-shadow: 0 .2rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: .3rem;
+  z-index: 3;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    padding-top: 0;
+  }
+
+  .nav .avatarImg {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .nav .h1 {
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+  }
+
+  .footer {
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 20rem;
+    margin-top: 1rem;
+  }
+
+  .footer>li {
+    border-radius: .2rem;
+  }
+
+  .footer>li>a,
+  .footer>li>span {
+    padding: .5rem 1rem !important;
+  }
+
+  .input {
+    width: 5rem !important;
+  }
+
+  .nav .avatarBox {
+    padding: 0;
+  }
+
+  .head {
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+
 }
 
 /* head */
@@ -15,13 +69,16 @@
   display: inherit;
   flex-direction: inherit;
 }
+
 .avatarBox {
   padding: 1rem 2rem;
 }
+
 .avatarImg {
   width: 6rem;
   height: 6rem;
 }
+
 .h1 {
   font-size: 1.2rem;
   padding-bottom: 1rem;
@@ -31,29 +88,33 @@
 .footer {
   display: inherit;
   flex-direction: inherit;
+  flex-wrap: wrap;
+
 }
-.footer > li {
+
+.footer>li {
   border-top: 1px solid rgb(243, 243, 243);
   font-size: 0.875rem;
-}
-
-.footer > li > a {
-  padding: .5rem;
-  display: inline-block;
-}
-.footer > li > span {
-  padding: .5rem;
-  display: inline-block;
-}
-
-
-.footer > li:not(:last-child) {
   cursor: pointer;
 }
-.footer > li:not(:last-child):hover {
+
+.footer>li>a,
+.footer>li>span {
+  padding: .5rem;
+  display: inline-block;
+}
+
+
+.footer>li:not(:last-child) {
+  cursor: pointer;
+  transition: .2s;
+}
+
+.footer>li:not(:first-child):hover {
   background-color: rgb(68, 206, 246);
   color: var(--color-white);
 }
+
 .input {
   padding: .5rem;
   outline: none;
@@ -62,4 +123,10 @@
   text-align: inherit;
   font-size: inherit;
   color: var(--color-gray);
+  transition: .2s;
+}
+
+.input:focus {
+  background-color: var(--color-light-black);
+  color: white;
 }

@@ -1,43 +1,56 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Message, useForceUpdate } from "react-blog-library/lib";
 
+let _user: any = null;
+
 /**
- * @description: 从localStorage中取出user，并可设置user，同步到localStorage中
+ * @description: 从localStorage中取出user，并可设置user，同步到localStorage中，组件销毁时需要调用removeUpdater清除更新
  * @param {*}
  * @return {*}
  */
+let updaters: Function[] = [];
 export default function useUser() {
-
-  //服务端没有localStorage
-  // const defaultUser = useMemo(
-  //   () => JSON.parse(localStorage.getItem("user") || "{}"),
-  //   []
-  // );
-
-  const userRef = useRef<User | null>(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUser(JSON.parse(user));
-    }
-  }, []);
 
   const forceUpdate = useForceUpdate();
 
+  useEffect(() => {
+    let userJson = localStorage.getItem("user");
+
+    if (userJson) _user = JSON.parse(userJson);
+    else _user = null;
+
+    return () => {
+
+      updaters = updaters.filter(u => u != forceUpdate);
+    }
+
+  }, []);
+
+  useEffect(() => {
+
+    updaters.push(forceUpdate);
+  }, []);
+
+  // const removeUpdater = useCallback(
+  //   () => {
+  //     updaters = updaters.filter(u => u != forceUpdate);
+  //   },
+  //   [],
+  // );
+
   const setUser = useCallback((user: User) => {
-    userRef.current = user;
+    _user = user;
     localStorage.setItem("user", JSON.stringify(user));
-    forceUpdate();
+    updaters.forEach(u => u());
   }, []);
 
   const clearUser = useCallback(() => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    userRef.current = null;
-    forceUpdate();
+    _user = null;
+    updaters.forEach(u => u());
     Message.success("退出成功");
   }, []);
 
-  return { user: userRef.current, setUser, clearUser };
+  return { user: _user, setUser, clearUser };
 }

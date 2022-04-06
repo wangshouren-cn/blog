@@ -1,5 +1,3 @@
-import BraftEditor, { EditorState } from 'braft-editor'
-import 'braft-editor/dist/index.css'
 import {
   useCallback,
   useLayoutEffect,
@@ -18,6 +16,7 @@ import {
   useHttpData
 } from 'react-blog-library'
 import {
+  useNavigate,
   useSearchParams
 } from 'react-router-dom'
 import ArticleForm from '../Components/ArticleForm'
@@ -28,8 +27,10 @@ const Edit = () => {
     else return Promise.reject('url路径中未获取到id参数')
   })
 
+  const navigate = useNavigate();
+
   const [form] = useFormStore<{
-    content: EditorState;
+    content: string;
     title: string;
     category: string;
     tags: string[];
@@ -44,8 +45,7 @@ const Edit = () => {
     run().then((data) => {
       if (!data) return
       const values = {
-        ...data,
-        content: BraftEditor.createEditorState(data.content)
+        ...data
       }
 
       form.setValues(values)
@@ -67,9 +67,10 @@ const Edit = () => {
 
     const values = form.getValues()
 
-    if (isObject(values.content)) values.content = values.content.toHTML()
+    await updateArticle(id, values as any);
 
-    await updateArticle(id, values as any)
+    navigate(-1);
+
   }, [form, id])
 
   if (!id) return

@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import Layout from "../layout";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
-import { stringifySearch, useForceUpdate } from "react-blog-library/lib";
+import { parseSearch, stringifySearch, useForceUpdate } from "react-blog-library/lib";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -13,9 +13,20 @@ function MyApp({ Component, pageProps }: AppProps) {
   const onSearch = useCallback(
     (search) => {
 
+      sessionStorage.removeItem("scrollTop");
+
       const pathname = window.location.pathname;
+
+      const oldSearch = router.query;
+
+      const { category, tags } = oldSearch;
+
+      const newSearch = { category, tags }
+
+      Object.assign(newSearch, search);
+
       router.push(
-        (pathname === "/article" ? "/" : pathname) + stringifySearch(search)
+        (pathname === "/article" ? "/" : pathname) + stringifySearch(newSearch as any)
       );
 
       forceUpdate();

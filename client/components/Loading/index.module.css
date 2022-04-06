@@ -1,0 +1,22 @@
+.loading {
+  animation: 2s loadingAnim infinite linear;
+  font-size: 2rem;
+  color: rgb(146, 145, 145);
+}
+
+.loadingBox {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes loadingAnim {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
